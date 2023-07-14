@@ -1,20 +1,27 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Loading } from "@components/Loading";
+import {
+  useFonts,
+  Teko_700Bold,
+  Teko_400Regular,
+} from "@expo-google-fonts/teko";
+import Home from "@screens/Home";
+import theme from "@theme/index";
+import { StatusBar } from "react-native";
+import { ThemeProvider } from "styled-components/native";
 
 export default function App() {
+  const [fontsLoaded] = useFonts({ Teko_400Regular, Teko_700Bold });
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeProvider theme={theme}>
+      <>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        />
+        {fontsLoaded ? <Home /> : <Loading />}
+      </>
+    </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
